@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>exo1</title>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular-cookies.min.js"></script>
+<script src="noteApp.js"></script>
+</head>
+<body data-ng-app="app">
+    <div ng-controller="NbController as noteCtrl">
+        <label for="root">Mot : </label> <input type="text" id="root"
+            placeholder="Entrez du texte" data-ng-model="noteCtrl.value">
+			Nombre de caractères restants : {{noteCtrl.calcul()}}
+    </div>
+</body>
+</html>
