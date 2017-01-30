@@ -10,9 +10,19 @@
 </head>
 <body data-ng-app="app">
     <div ng-controller="NbController as noteCtrl">
-        <label for="root">Mot : </label> <input type="text" id="root"
-            placeholder="Entrez du texte" data-ng-model="noteCtrl.value">
-			Nombre de caractères restants : {{noteCtrl.calcul()}}
+        <label for="root">Note : </label>
+        <textarea id="root"
+                  placeholder="Entrez du texte"
+                  data-ng-model="noteCtrl.value"
+                  >
+        </textarea><br><br>
+			Nombre de caractères restants : {{noteCtrl.count()}}
+        <br>
+        <input type="submit" id="effacer" value="Effacer" data-ng-click="noteCtrl.clear()">
+        <input type="submit" id="enregistrer" value="Enregistrer" data-ng-click="noteCtrl.save()">
+        <div >
+             {{noteCtrl.show()}}
+        </div>
     </div>
 </body>
 </html>
