@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>exo1</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" media="all">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular-cookies.min.js"></script>
+<script src="noteApp.js"></script>
+</head>
+<body data-ng-app="app">
+    <div ng-controller="NbController as noteCtrl">
+        <label for="root">Note : </label>
+        <textarea id="root"
+                  placeholder="Entrez du texte"
+                  data-ng-model="noteCtrl.value"
+                  class="form-control"
+                  >
+        </textarea><br><br>
+
+        <br>
+        <input type="submit" id="effacer" value="Effacer" data-ng-click="noteCtrl.clear()">
+        <input type="submit" id="enregistrer" value="Enregistrer" data-ng-click="noteCtrl.save()">
+        <div class="bg-primary">Nombre de caractères restants : {{noteCtrl.count()}}</div><br>
+        <div class="bg-primary">
+             {{noteCtrl.show()}}
+        </div>
+    </div>
+</body>
+</html>
+
