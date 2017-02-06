@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="fr" class="ng-scope" data-ng-app="ServicesApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Exo2</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" media="all">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular-cookies.min.js"></script>
+    <script src="app.js"></script>
+</head>
+<body class="ng-scope" data-ng-controller = "ServicesController as servCtrl">
+    <div class="toggle ng-scope" ng-view="">
+        <form id="services" class="ng-valid ng-scope ng-dirty ng-valid-parse" >
+            <h1>Services</h1>
+            <div class="alert alert-info">
+                <span>Choisissez les éléments à inclure</span>
+                <p>
+                    {{servCtrl.total()}}
+                </p>
+            </div>
+            <ul>
+                <p class="ng-binding ng-scope active"
+                   ng-repeat="services in servCtrl.service"
+                    >
+                    <button  ng-class="{active:services.active}"
+                             class="btn btn-default"
+                             ng-style="servCtrl.getActive()===true"
+                             ng-click="servCtrl.toggleActive(services)"
+                            >
+                    {{services.name}}
+                    <span>{{services.price | currency}}</span></button>
+                </p>
+            </ul>
+            <div class="total">
+                Total :
+                <span class="ng-binding">{{servCtrl.calcTotal()}}</span>
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon">
+                    <input class="ng-valid ng-dirty ng-valid-parse ng-touched" ng-click="servCtrl.codeValid()" type="checkbox">
+                    <input class="form-control ng-valid ng-dirty ng-valid-parse ng-touched"
+                           data-ng-model="servCtrl.value"
+                           placeholder="Code promo"
+                           id="remise"
+                    >
+                </span>
+            </div>
+            <div class="total" ng-show="servCtrl.code()"><br>
+
+                Remise : {{servCtrl.remise()}}<br>
+                <span class="ng-binding" ng-if="servCtrl.remise()">
+                    Total après remise :
+                    {{servCtrl.calcTotal()-servCtrl.calcTotal()*20/100}}
+                </span>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
+
