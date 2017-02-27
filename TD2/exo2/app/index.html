@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html data-ng-app="contactApp">
+<head>
+  <meta charset="UTF-8">
+  <title>Exo1 TD2</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" media="all">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular-cookies.min.js"></script>
+  <script src="contactController.js"></script>
+</head>
+<body data-ng-controller="contactController as Ctrl">
+<div class="container">
+  <form id="services" >
+    <div class="form-group">
+      <h3>Contacts</h3>
+      <input type="text" placehoder="Filter" name="filtre" id="filtre" class="form-control">
+      <table id="lstContact" class="table table-striped">
+        <tbody>
+          <tr data-ng-repeat="contact in Ctrl.contacts" class="animate-repeat ng-scope" my-contact contact="contact">
+            <!--  contact in contacts |NotDeletedFilter |filter:q as results-->
+          </tr>
+          <tr>
+              <td colspan="4">
+                  <a id="add" class="btn btn-primary" href="" data-ng-click="toAdd()">Ajouter</a>
+                  <a id="add" class="btn btn-danger ng-hide" href=""
+                     data-ng-show="results.length<contacts.length && !q"
+                     data-ng-click="cancelOne()">
+                      <data-ng-pluralize count="contacts.length-results.length"
+                                         when="{'one' : 'Annuler la suppression.','other':'Annuler les suppressions ({}) .'}">
+                      </data-ng-pluralize>
+                  </a>
+              </td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+    <frm-contact-elem>
+        <fieldset class="container form-group form-inline" data-ng-show="edit">
+            <legend class="ng-binding">Modifier un contact</legend>
+            <form class="ng-pristine ng-valid-email ng-valid ng-valid-required" name="frmContact"
+                  data-ng-submit="frmContact.$valid && update()" novalidate="">
+                <input type="text" placeholder="Nom" name="modifNom" id="modifNom"
+                       class="form-control ng-pristine ng-untouched ng-valid ng-valid-required"
+                       data-ng-model="tmpContact.nom">
+                <input type="text" placeholder="Prenom"
+                       class="form-control ng-pristine ng-untouched ng-valid ng-valid-required"
+                       data-ng-model="tmpContact.prenom">
+                <input type="text" placeholder="Email"
+                       class="form-control ng-valid-email ng-pristine ng-untouched ng-valid ng-valid-required"
+                       data-ng-model="tmpContact.mail">
+                <input type="submit" value="Valider" name="valider" id="valider" class="btn btn-primary">
+                <input type="button" value="Annuler" name="annuler" id="annuler" class="btn btn-primary"
+                        data-ng-click="edit=false">
+            </form>
+        </fieldset>
+    </frm-contact-elem>
+  </form>
+</div>
+<div class="container">
+    <data-ng-pluralize count="results.length" when="{'0':'Aucun résultat.', 'one': '1 contact trouvé', 'other': '{} contacts trouvés.'}">
+    </data-ng-pluralize>
+</div>
+</body >
+
+</html>
