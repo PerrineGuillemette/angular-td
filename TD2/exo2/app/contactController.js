@@ -4,19 +4,19 @@ contactApp.controller('contactController', ["$http",function(http) {
     var self=this;
 
     //Variable contenant le contact à modifier
-    this.contact;
+    this.contact=null;
 
     //Variable contenant le contact modifié par le formulaire
-    this.tmpContact;
+    this.tmpContact=null;
 
     //Chaîne indiquant la modification ou l'ajout d'un contact
-    this.operation;
+    this.operation=null;
 
     // Contrôle l'affichage du formulaire d'ajout/modification
-    this.edit;
+    this.edit=0;
 
     //Tableau des contacts existants
-    var contacts =[
+    this.contacts =[
         {
             "nom":"ZUCKERBERG",
             "prenom":"Marc",
@@ -30,16 +30,15 @@ contactApp.controller('contactController', ["$http",function(http) {
             "deleted":"false"
         }
     ];
-    this.contacts=contacts;
 
     //Affiche le formulaire de modification du contact
     this.toUpdate = function(contact){
-
+        edit=2;
     };
 
     // Affiche le formulaire d'ajout d'un contact
     this.toAdd = function(){
-
+        edit=1;
     };
 
     // Ajoute le contact
@@ -49,13 +48,13 @@ contactApp.controller('contactController', ["$http",function(http) {
 
     // Met à jour la liste des contacts après validation du formulaire (ajout ou modif)
     this.update = function(){
-
+        return contacts;
     };
 
     //Supprime de la liste le contact
     this.delete = function(contact){
         for(cont in contacts){
-            if(cont.value==contact.value){
+            if(cont.nom==contact.nom){
                 cont.delete="true";
             }
         }
@@ -67,3 +66,10 @@ contactApp.controller('contactController', ["$http",function(http) {
         templateUrl: 'contact.html'
     };
 });
+/*    $http.post("fichier.php",{info:'hello world'}).
+ success(function(data, status) {
+ document.getElementById("info").innerHTML = "Ca marche !"
+ }).
+ error(function(data, status) {
+ document.getElementById("erreur").innerHTML = "Erreur lors de l'envoi"
+ });*/
