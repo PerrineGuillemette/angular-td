@@ -14,7 +14,7 @@
         <h1>Sélectionnez vos produits</h1>
         <div>Produits disponibles</div>
         <div class="row">
-          <select ng-options="liste.title for liste in Ctrl.dispoItems" ng-model="selected" multiple class="form-control"></select>
+          <select ng-options="liste.title for liste in Ctrl.dispoItems" ng-model="selectedDispoItems" multiple class="form-control" ng-dblclick="Ctrl.selectItem()"></select>
           <button class = "glyphicon glyphicon-step-forward " ng-click="Ctrl.addToIncluded()"></button>
           <button class="glyphicon glyphicon-fast-forward " ng-click="Ctrl.addAllToIncluded()"></button>
           <button class="glyphicon glyphicon-fast-backward" ng-click="Ctrl.removeFromIncluded()"></button>

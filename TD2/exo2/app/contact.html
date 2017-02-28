@@ -1,9 +1,14 @@
-<td>{{contact.nom}} </td>
+
+<td >{{contact.nom}} </td>
 <td>{{contact.prenom}}</td>
 <td>{{contact.mail}}</td>
-<td><a class="btn btn-info btn-xs" href="" data-ng-click="toUpdate(contact)">
-    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+<td  >{{contact.deleted}}</td>
+<td><a class="btn btn-info btn-xs" data-ng-click="Ctrl.toUpdate(contact.nom)">
+    <span class="glyphicon glyphicon-edit" aria-hidden="true" ></span>
 </a></td>
-<td><a class="btn btn-danger btn-xs" href="" data-ng-click="delete(contact)">
+<td><a class="btn btn-danger btn-xs" data-ng-click="Ctrl.delete(contact.nom)">
     <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 </a></td>
+
+
+

@@ -15,30 +15,36 @@ contactApp.controller('contactController', ["$http",function(http) {
     // Contrôle l'affichage du formulaire d'ajout/modification
     this.edit=0;
 
+
+
     //Tableau des contacts existants
     this.contacts =[
         {
             "nom":"ZUCKERBERG",
             "prenom":"Marc",
             "mail":"mark@facebook.com",
-            "deleted":"false"
+            "deleted":true
         },
         {
             "nom":"GATES",
             "prenom":"Bill",
             "mail":"bill@microsoft.com",
-            "deleted":"false"
+            "deleted":false
         }
     ];
 
     //Affiche le formulaire de modification du contact
-    this.toUpdate = function(contact){
-        edit=2;
+    this.toUpdate = function(){
+        self.edit=2;
+    };
+
+    this.toCancel = function(){
+        self.edit=0;
     };
 
     // Affiche le formulaire d'ajout d'un contact
     this.toAdd = function(){
-        edit=1;
+        self.edit=1;
     };
 
     // Ajoute le contact
@@ -47,22 +53,37 @@ contactApp.controller('contactController', ["$http",function(http) {
     };
 
     // Met à jour la liste des contacts après validation du formulaire (ajout ou modif)
-    this.update = function(){
-        return contacts;
+    this.update = function(contact){
+        for(var c in self.contacts){
+            if(self.contacts[c].nom==contact.nom)
+                self.contacts[c].prenom=contact.prenom;
+                self.contacts.mail = contact.mail;
+        }
     };
 
     //Supprime de la liste le contact
     this.delete = function(contact){
-        for(cont in contacts){
-            if(cont.nom==contact.nom){
-                cont.delete="true";
-            }
+        for(var c in self.contacts){
+            if(self.contacts[c].nom==contact)
+                self.contacts[c].deleted="true";
         }
     };
+
+
+    this.show = function(){
+        return self.edit;
+    };
+    this.count = function(){
+        count = 0;
+        for(var i in self.contacts){
+            if(self.contacts[i].deleted == false)
+                count++;
+        }
+        return count;
+    }
 }]).directive('myContact', function() {
     return {
         restrict : 'A',
-        scope : {contact: "="},
         templateUrl: 'contact.html'
     };
 });

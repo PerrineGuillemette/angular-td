@@ -1,20 +1,9 @@
-'use strict';
-
-// Declare app level module which depends on views, and components
-angular.module('myApp', [
-  'ngRoute',
-  'myApp.view1',
-  'myApp.view2',
-  'myApp.version'
-]).
-config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
-  $locationProvider.hashPrefix('!');
-
-  $routeProvider.otherwise({redirectTo: '/view1'});
-}]);
-
-var app = angular.module('app',[]);
-app.controller('ServicesController', [function() {
+var ServicesApp = angular.module('ServicesApp',[]);
+ServicesApp.controller('ServicesController', [function() {
+    var code=false;
+    var remise='salut';
+    var self=this;
+    var total=0;
     var services = [
         {
             "name": "Web Development",
@@ -23,7 +12,7 @@ app.controller('ServicesController', [function() {
         },{
             "name": "Design",
             "price": 400,
-            "active":false
+            "active":true
         },{
             "name": "Integration",
             "price": 250,
@@ -34,12 +23,71 @@ app.controller('ServicesController', [function() {
             "active":false
         }
     ];
+    this.service = services;
+    this.total = function(){
+        var i =0;
+        var cpt=0;
+        for( var val in services){
+            if(services[val].active==true)
+                cpt++;
+        }
+        if(cpt == 0)
+            return "Aucun service sélectionné";
+        else if(cpt == 1)
+            return "1 service selectionné"
+        else
+            return cpt+" services sélectionnés";
+    };
 
-    this.total = function() {
-        if(self.value != "" && self.value!=messageNote)
-        return 100-self.value.length;
+    this.toggleActive = function(serv){
+       for(var s in services){
+           if(services[s]==serv) {
+               if (services[s].active == false)
+                   services[s].active = true;
+               else
+                   services[s].active=false;
+           }
+       }
     };
-    this.toggleActive = function(){
-        self.value="";
+
+    this.getName = function(){
+        for(var val in services)
+            return services[val].name;
     };
+
+    this.getActive = function(serv){
+        for(var s in services)
+            if(services[s]==serv)
+                return services[s].active;
+    };
+
+    this.calcTotal = function(){
+        total=0;
+        for(var s in services){
+            if(services[s].active==true)
+                total+=services[s].price;
+        }
+        return total;
+    };
+
+    this.codeValid = function(){
+        code=true;
+    };
+
+    this.code = function(){
+        return code;
+    };
+
+    this.calcRemise=function(montant){
+        return montant*20/100;
+    };
+
+    this.remise = function(){
+        if(remise==self.value)
+            return total*20/100;
+        else
+            return 'Code promo incorrect';
+    };
+
+
 }]);
