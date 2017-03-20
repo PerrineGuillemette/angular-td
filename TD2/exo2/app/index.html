@@ -16,8 +16,7 @@
       <input type="text" placehoder="Filter" name="filtre" id="filtre" class="form-control">
       <table id="lstContact" class="table table-striped">
         <tbody>
-          <tr data-ng-repeat="contact in Ctrl.contacts" class="animate-repeat ng-scope" my-contact contact="contact" ng-if="!Ctrl.contact.deleted">
-            <!--  contact in contacts |NotDeletedFilter |filter:q as results-->
+          <tr data-ng-repeat="contact in Ctrl.contacts |filter:q as results" class="animate-repeat ng-scope" my-contact contact="contact" ng-if="!Ctrl.contact.deleted">
           </tr>
           <tr>
               <td colspan="4">

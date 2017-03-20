@@ -3,7 +3,7 @@ app.controller('ListesController', ["$http",function(http) {
 
     var self=this;
   //Tableau des produits disponibles défini en JSON (utiliser le service $http)
-    this.dispoItems =[
+    self.dispoItems =[
       {
           "url": "http://tutorialzine.com/2013/07/50-must-have-plugins-for-extending-twitter-bootstrap/",
           "title": "50 Must-have plugins for extending Twitter Bootstrap",
@@ -40,60 +40,56 @@ app.controller('ListesController', ["$http",function(http) {
           "image": "http://cdn.tutorialzine.com/wp-content/uploads/2013/04/service_chooser_form-100x100.jpg"
       }
     ];
-
   //Tableau des produits à inclure
-    this.includedItems=[];
-
+    self.includedItems=[];
   //Tableau des éléments sélectionnés dans la liste des produits disponibles
-    this.selectedDispoItems=[];
-
+    self.selectedDispoItems=[];
   //Tableau des éléments sélectionnés dans la liste des produits à inclure
-    this.selectedIncludedItems=[];
+    self.selectedIncludedItems=[];
 
-    this.step=1;//vaut 1 ou 2
-
+    self.step=1;//vaut 1 ou 2
     /*$http.get("data/products.json").success(function(data){
         self.dispoItems =data;
     });*/
-
-
     //Ajoute les produits disponibles en surbrillance (selectedDispoItems) à la liste des produits à inclure (includedItems)
-    this.addToIncluded = function(){
+    self.addToIncluded = function(){
         self.selectedIncludedItems=[];
-        app.forEach(self.selectedDispoItems, function(value){
+        angular.forEach(self.selectedDispoItems, function(value){
             self.includedItems.push(value);
             self.selectedIncludedItems.push(value);
             self.dispoItems.splice(self.dispoItems.indexOf(value),1);
         });
         self.selectedDispoItems=[];
-       /* for( i=0; i< dispoItems.length; i++){
-            if(dispoItems[i].title==self.value) {
-                includedItems=dispoItems.slice(i);
-                dispoItems=[];
-            }
-            else
-                dispoItems.push(i);
-        }*/
     };
 
     //Ajoute tous les produits disponibles (dispoItems) à la liste des produits à inclure (includedItems)
-    this.addAllToIncluded = function(){
-            includedItems=dispoItems;
-            dispoItems=[];
+    self.addAllToIncluded = function(){
+        self.includedItems.push.apply(self.includedItems, self.dispoItems);
+        self.dispoItems=[];
+        self.selectedDispoItems=[];
     };
 
     //Retire les produits sélectionnés en surbrillance (selectedIncludedItems) pour les remettre dans la liste des produits disponibles (items)
-    this.removeFromIncluded=function(){
-
-
+    self.removeFromIncluded=function(){
+        self.selectedDispoItems=[];
+        angular.forEach(self.selectedIncludedItems, function (value) {
+            self.dispoItems.push(value);
+            self.selectedDispoItems.push(value);
+            self.includedItems.splice(self.includedItems.indexOf(value),1);
+        });
+        self.selectedIncludedItems=[];
     };
 
     //Retire tous les produits à inclure (includedItems) pour les remettre dans la liste des produits disponibles (items)
-    this.RemoveAllFromIncluded = function(){
-       /* dispoItems=includedItems;
-        includedItems=null;*/
+    self.RemoveAllFromIncluded = function(){
+        self.dispoItems.push.apply(self.dispoItems, self.includedItems);
+        self.includedItems=[];
+        self.selectedIncludedItems=[];
     };
     self.selectItem=function(){
         self.addToIncluded();
+    };
+    self.deselectItem=function(){
+        self.removeFromIncluded();
     };
 }])

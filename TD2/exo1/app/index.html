@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html data-ng-app="ListesApp">
+<html >
   <head>
     <meta charset="UTF-8">
     <title>Exo1 TD2</title>
@@ -8,37 +8,40 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular-cookies.min.js"></script>
     <script src="app.js"></script>
   </head>
-  <body data-ng-controller="ListesController as Ctrl">
-    <div class="container">
-      <form id="services" >
+  <body data-ng-app="ListesApp">
+  <div data-ng-controller="ListesController as Ctrl">
+    <div class="container" ng-show="Ctrl.step==1">
         <h1>Sélectionnez vos produits</h1>
         <div>Produits disponibles</div>
         <div class="row">
-          <select ng-options="liste.title for liste in Ctrl.dispoItems" ng-model="selectedDispoItems" multiple class="form-control" ng-dblclick="Ctrl.selectItem()"></select>
-          <button class = "glyphicon glyphicon-step-forward " ng-click="Ctrl.addToIncluded()"></button>
-          <button class="glyphicon glyphicon-fast-forward " ng-click="Ctrl.addAllToIncluded()"></button>
-          <button class="glyphicon glyphicon-fast-backward" ng-click="Ctrl.removeFromIncluded()"></button>
-          <button class="glyphicon glyphicon-step-backward" ng-click="Ctrl.RemoveAllFromIncluded()"></button>
-          <select ng-options="liste2.title for list2 in Ctrl.includedItems" ng-model="selected" multiple class="form-control"></select>
+          <select ng-options="liste.title for liste in Ctrl.dispoItems"
+                  ng-model="Ctrl.selectedDispoItems"
+                  ng-dblclick="Ctrl.selectItem()"
+                  multiple class="form-control">
+          </select>
+
+          <button name="ajout" class ="glyphicon glyphicon-step-forward " ng-click="Ctrl.addToIncluded()" ng-disabled="Ctrl.selectedDispoItems.length<1"></button>
+          <button name="ajoutTous" class="glyphicon glyphicon-fast-forward " ng-click="Ctrl.addAllToIncluded()" ng-disabled="Ctrl.dispoItems.length<1"></button><br>
+          <button name="retirer" class="glyphicon glyphicon-step-backward" ng-click="Ctrl.removeFromIncluded()" ng-disabled="Ctrl.selectedIncludedItems.length<1"></button>
+          <button name="retirerTous" class="glyphicon glyphicon-fast-backward" ng-click="Ctrl.RemoveAllFromIncluded()" ng-disabled="Ctrl.includedItems.length<1"></button>
+
+          <div>Produits à inclure</div>
+          <select ng-options="listeD.title for listD in Ctrl.includedItems"
+                  ng-model="Ctrl.selectedIncludedItems"
+                  ng-dblClick="Ctrl.deselectItem()"
+                  multiple class="form-control">
+          </select>
         </div>
         </select>
+
+        <ng-pluralize count="Ctrl.includedItems.length"
+                      when="{0:'Aucun produit à inclure',
+							1:'1 produit inclus',
+							'other':'{} produits inclus'}">
+        </ng-pluralize>
       </form>
     </div>
-
+  </div>
   </body >
 
 </html>
-
-<!--
-<select ng-options="item as item.label for item in items track by item.id" ng-model="selected"></select>
-$scope.selected = $scope.items[0];
-<div ng-app="myApp" ng-controller="myCtrl">
-<select ng-model="selectedName" ng-options="item for item in names"></select>
-</div>
-
-<script>
-var app = angular.module('myApp', []);
-app.controller('myCtrl', function($scope) {
-    $scope.names = ["Emil", "Tobias", "Linus"];
-});
-</script>-->

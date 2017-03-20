@@ -14,6 +14,7 @@
         <textarea id="root"
                   placeholder="Entrez du texte"
                   data-ng-model="noteCtrl.value"
+                  maxlength="100"
                   class="form-control"
                   >
         </textarea><br><br>
@@ -21,7 +22,12 @@
         <br>
         <input type="submit" id="effacer" value="Effacer" data-ng-click="noteCtrl.clear()">
         <input type="submit" id="enregistrer" value="Enregistrer" data-ng-click="noteCtrl.save()">
-        <div class="bg-primary">Nombre de caractères restants : {{noteCtrl.count()}}</div><br>
+        <div ng-class="{'alert-info':noteCtrl.status==1,
+                        'alert-warning':noteCtrl.status==2,
+                        'alert-danger':noteCtrl.status==3,
+                        'alert-success':noteCtrl.status==0}"
+             class="alert alert-info alert-dismissible"
+             role="alert">Nombre de caractères restants : {{noteCtrl.count()}}</div><br>
         <div class="bg-primary">
              {{noteCtrl.show()}}
         </div>

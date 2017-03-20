@@ -2,9 +2,35 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Exo1 TD3</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" media="all">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular-cookies.min.js"></script>
+    <script src="app.js"></script>
 </head>
 <body>
+<div class="toggle ng-scope">
+    <div class="container ng scope" data-ng-controller="currencyController">
+        <div class="panel panel-primary">
+            <div class="panel-heading"> Exercice TD3 : currency application </div>
+            <div class="panel body">
+                <form class="form-group form-inline ng-pristine ng-valid" ng-keypress="$event.keyCode == 13 ? getResult() : null" >
+                    <input class="form-control ng-pristine ng-untouched ng-valid" data-ng-model="what" size="5" type="text">
+                    <select class="form-control ng-pristine ng-valid ng-touched" data-ng-model="from" data-ng-options="v.code + ' - ' + v.name for (k,v) in currencies" ></select>
+                    <a href="#" data-ng-click="swap()"><-></a>
+                    <select class="form-control ng-pristine ng-valid ng-touched" data-ng-model="to" data-ng-options = "v.code + ' - ' + v.name for (k,v) in currencies"></select>
+                    <input class="btn btn-primary" value="Convertir" data-ng-click="getResult()" type="button">
+                    <input class="form-control ng-pristine ng-touched ng-valid" data-ng-model="result.value" readonly="readonly" type="text" size="5">
+                    <div class="checkbox">
+                        <label>
+                            <input class="form-control ng-pristine ng-valid ng-touched" type="checkbox">Historique
+                        </label>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>
